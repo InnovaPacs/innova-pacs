@@ -1,5 +1,6 @@
 package com.persist.innovapacs.adapter.out.jpa.entities;
 
+import com.persist.innovapacs.application.ports.in.patient.commands.PatientCommand;
 import com.persist.innovapacs.domain.Patient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -83,6 +84,27 @@ public class PatientEntity {
                 .gender(patient.getGender())
                 .maritalStatus(patient.getMaritalStatus())
                 .user(UserEntity.toDomain(patient.getUser()))
+                .build();
+    }
+
+    public static PatientEntity fromDomain(Patient patient) {
+        return PatientEntity.builder()
+                .id(patient.getId())
+                .documentId(patient.getDocumentId())
+                .ssn(patient.getSsn())
+                .emergencyContact(patient.getEmergencyContact())
+                .notes(patient.getNotes())
+                .phoneNumber(patient.getPhoneNumber())
+                .address(patient.getAddress())
+                .city(patient.getCity())
+                .state(patient.getState())
+                .postalCode(patient.getPostalCode())
+                .country(patient.getCountry())
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
+                .dateOfBirth(patient.getDateOfBirth())
+                .gender(patient.getGender())
+                .maritalStatus(patient.getMaritalStatus())
                 .build();
     }
 }

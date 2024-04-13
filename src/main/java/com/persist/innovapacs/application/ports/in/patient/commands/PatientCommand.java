@@ -23,4 +23,5 @@ public class PatientCommand {
     String country;
     String notes;
     String maritalStatus;
+    String emergencyContact;
 }

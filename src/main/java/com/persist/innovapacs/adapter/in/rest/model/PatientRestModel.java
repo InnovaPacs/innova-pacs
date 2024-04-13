@@ -19,10 +19,12 @@ public class PatientRestModel {
     String address;
     String city;
     String state;
+    String ssn;
     String postalCode;
     String country;
     String notes;
     String maritalStatus;
+    String emergencyContact;
     UserRestModel user;
 
     public static PatientRestModel fromDomain(Patient patient) {

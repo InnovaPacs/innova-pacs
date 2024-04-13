@@ -17,7 +17,7 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class PatientJPAAdapter implements PatientRepository {
-    private  final PatientJPARepository patientJPARepository;
+    private final PatientJPARepository patientJPARepository;
 
     @Override
     public com.persist.innovapacs.domain.commons.Page<Patient> findAllPatients(PatientFilter filter) {
@@ -39,5 +39,11 @@ public class PatientJPAAdapter implements PatientRepository {
     @Override
     public Optional<Patient> findByDocumentId(String documentId) {
         return Optional.empty();
+    }
+
+    @Override
+    public Patient save(Patient patient) {
+        PatientEntity patientEntity = PatientEntity.fromDomain(patient);
+        return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
     }
 }
