@@ -29,6 +29,8 @@ public class UserEntity {
     String status;
 
     public static User toDomain(UserEntity user) {
+        if ( user == null ) return  null;
+
         return User.builder()
                 .id(user.getId())
                 .email(user.getEmail())

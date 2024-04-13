@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 public interface GetPatientsQuery {
+
     Page<Patient> execute(Data data);
 
     @Getter

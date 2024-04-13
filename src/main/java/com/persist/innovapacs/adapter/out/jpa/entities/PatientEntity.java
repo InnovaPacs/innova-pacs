@@ -1,6 +1,5 @@
 package com.persist.innovapacs.adapter.out.jpa.entities;
 
-import com.persist.innovapacs.application.ports.in.patient.commands.PatientCommand;
 import com.persist.innovapacs.domain.Patient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,45 +65,71 @@ public class PatientEntity {
     private MedicalOfficeEntity medicalOffice;
 
     public static Patient toDomain(PatientEntity patient) {
+
+        if (patient == null) return null;
+
         return Patient.builder()
                 .id(patient.getId())
                 .documentId(patient.getDocumentId())
-                .ssn(patient.getSsn())
                 .emergencyContact(patient.getEmergencyContact())
-                .notes(patient.getNotes())
-                .phoneNumber(patient.getPhoneNumber())
-                .address(patient.getAddress())
-                .city(patient.getCity())
-                .state(patient.getState())
-                .postalCode(patient.getPostalCode())
                 .country(patient.getCountry())
-                .firstName(patient.getFirstName())
-                .lastName(patient.getLastName())
+                .city(patient.getCity())
+                .notes(patient.getNotes())
+                .state(patient.getState())
+                .ssn(patient.getSsn())
                 .dateOfBirth(patient.getDateOfBirth())
                 .gender(patient.getGender())
+                .address(patient.getAddress())
                 .maritalStatus(patient.getMaritalStatus())
-                .user(UserEntity.toDomain(patient.getUser()))
+                .phoneNumber(patient.getPhoneNumber())
+                .postalCode(patient.getPostalCode())
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
                 .build();
     }
 
     public static PatientEntity fromDomain(Patient patient) {
+
+        if (patient == null) return null;
+
         return PatientEntity.builder()
                 .id(patient.getId())
                 .documentId(patient.getDocumentId())
-                .ssn(patient.getSsn())
                 .emergencyContact(patient.getEmergencyContact())
-                .notes(patient.getNotes())
-                .phoneNumber(patient.getPhoneNumber())
-                .address(patient.getAddress())
-                .city(patient.getCity())
-                .state(patient.getState())
-                .postalCode(patient.getPostalCode())
                 .country(patient.getCountry())
-                .firstName(patient.getFirstName())
-                .lastName(patient.getLastName())
+                .city(patient.getCity())
+                .notes(patient.getNotes())
+                .state(patient.getState())
+                .ssn(patient.getSsn())
                 .dateOfBirth(patient.getDateOfBirth())
                 .gender(patient.getGender())
+                .address(patient.getAddress())
                 .maritalStatus(patient.getMaritalStatus())
+                .phoneNumber(patient.getPhoneNumber())
+                .postalCode(patient.getPostalCode())
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
+                .build();
+    }
+
+    public static PatientEntity patchEntity(Patient patient, PatientEntity currentPatient) {
+        return PatientEntity.builder()
+                .id(patient.getId())
+                .documentId(patient.getDocumentId() != null ? patient.getDocumentId() : currentPatient.getDocumentId())
+                .emergencyContact(patient.getEmergencyContact() != null ? patient.getEmergencyContact() : currentPatient.getEmergencyContact())
+                .country(patient.getCountry() != null ? patient.getCountry() : currentPatient.getCountry())
+                .city(patient.getCity() != null ? patient.getCity() : currentPatient.getCity())
+                .notes(patient.getNotes() != null ? patient.getNotes() : currentPatient.getNotes())
+                .state(patient.getState() != null ? patient.getState() : currentPatient.getState())
+                .ssn(patient.getSsn() != null ? patient.getSsn() : currentPatient.getSsn())
+                .dateOfBirth(patient.getDateOfBirth() != null ? patient.getDateOfBirth() : currentPatient.getDateOfBirth())
+                .gender(patient.getGender() != null ? patient.getGender() : currentPatient.getGender())
+                .address(patient.getAddress() != null ? patient.getAddress() : currentPatient.getAddress())
+                .maritalStatus(patient.getMaritalStatus() != null ? patient.getMaritalStatus() : currentPatient.getMaritalStatus())
+                .phoneNumber(patient.getPhoneNumber() != null ? patient.getPhoneNumber() : currentPatient.getPhoneNumber())
+                .postalCode(patient.getPostalCode() != null ? patient.getPostalCode() : currentPatient.getPostalCode())
+                .firstName(patient.getFirstName() != null ? patient.getFirstName() : currentPatient.getFirstName())
+                .lastName(patient.getLastName() != null ? patient.getLastName() : currentPatient.getLastName())
                 .build();
     }
 }

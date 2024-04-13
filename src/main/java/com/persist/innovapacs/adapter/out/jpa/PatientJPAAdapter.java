@@ -6,7 +6,16 @@ import com.persist.innovapacs.adapter.out.jpa.repositories.PatientJPARepository;
 import com.persist.innovapacs.application.ports.out.PatientRepository;
 import com.persist.innovapacs.domain.Patient;
 import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.domain.exception.BusinessException;
+import com.persist.innovapacs.domain.exception.EntityConflictException;
+import com.persist.innovapacs.domain.exception.EntityNotFoundException;
+import com.persist.innovapacs.domain.exception.RepositoryConflictException;
+import com.persist.innovapacs.domain.exception.model.ErrorCode;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class PatientJPAAdapter implements PatientRepository {
@@ -43,7 +53,51 @@ public class PatientJPAAdapter implements PatientRepository {
 
     @Override
     public Patient save(Patient patient) {
-        PatientEntity patientEntity = PatientEntity.fromDomain(patient);
-        return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+        try {
+
+            PatientEntity patientEntity = PatientEntity.fromDomain(patient);
+            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+        }catch (EmptyResultDataAccessException ex) {
+            log.error("Error finding Integration", ex);
+            throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
+        } catch (DataIntegrityViolationException ex) {
+            log.error("Error saving Integration", ex);
+            throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
+        } catch (DataAccessException ex) {
+            log.error("Unexpected error saving Integration", ex);
+            throw new RepositoryConflictException(ErrorCode.REPOSITORY_CONFLICT);
+        } catch (Exception ex) {
+            log.error("Unexpected error in domain: Integration", ex);
+            throw new BusinessException(ErrorCode.UNEXPECTED_ERROR);
+        }
+    }
+
+    @Override
+    public Patient patch(Patient patient) {
+        try {
+
+            Optional<PatientEntity> currentPatient = patientJPARepository.findById(patient.getId());
+
+            if(currentPatient.isEmpty()) {
+                throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
+            }
+
+            PatientEntity patientEntity = PatientEntity.patchEntity(patient, currentPatient.get());
+            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+        }catch (EmptyResultDataAccessException ex) {
+            log.error("Error finding Integration", ex);
+            throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
+        } catch (DataIntegrityViolationException ex) {
+            log.error("Error saving Integration", ex);
+            throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
+        } catch (DataAccessException ex) {
+            log.error("Unexpected error saving Integration", ex);
+            throw new RepositoryConflictException(ErrorCode.REPOSITORY_CONFLICT);
+        } catch (Exception ex) {
+            log.error("Unexpected error in domain: Integration", ex);
+            throw new BusinessException(ErrorCode.UNEXPECTED_ERROR);
+        }
     }
 }

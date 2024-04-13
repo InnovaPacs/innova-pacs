@@ -12,6 +12,9 @@ public class UserRestModel {
     String status;
 
     public static UserRestModel fromDomain(User user) {
+
+        if (user == null) return null;
+
         return UserRestModel.builder()
                 .id(user.getId())
                 .email(user.getEmail())

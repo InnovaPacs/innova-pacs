@@ -28,6 +28,9 @@ public class PatientRestModel {
     UserRestModel user;
 
     public static PatientRestModel fromDomain(Patient patient) {
+
+        if (patient == null) return null;
+
         return PatientRestModel.builder()
                 .id(patient.getId())
                 .firstName(patient.getFirstName())
@@ -44,6 +47,7 @@ public class PatientRestModel {
                 .notes(patient.getNotes())
                 .maritalStatus(patient.getMaritalStatus())
                 .user(UserRestModel.fromDomain(patient.getUser()))
+                .emergencyContact(patient.getEmergencyContact())
                 .build();
     }
 
@@ -63,6 +67,7 @@ public class PatientRestModel {
                 .country(patientRestModel.getCountry())
                 .notes(patientRestModel.getNotes())
                 .maritalStatus(patientRestModel.getMaritalStatus())
+                .emergencyContact(patientRestModel.getEmergencyContact())
                 .build();
     }
 }

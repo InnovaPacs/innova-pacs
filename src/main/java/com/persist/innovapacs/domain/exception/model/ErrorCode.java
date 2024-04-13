@@ -1,0 +1,42 @@
+package com.persist.innovapacs.domain.exception.model;
+
+public enum ErrorCode {
+    BAD_REQUEST(Constants.BAD_REQUEST),
+    UNEXPECTED_ERROR(Constants.BAD_REQUEST),
+    PATIENT_ALREADY_EXIST(Constants.PATIENT_ALREADY_EXIST),
+    REPOSITORY_NOT_AVAILABLE(Constants.REPOSITORY_NOT_AVAILABLE),
+    ENTITY_NOT_FOUND(Constants.ENTITY_NOT_FOUND),
+    REPOSITORY_CONFLICT(Constants.REPOSITORY_CONFLICT),
+    ERROR_SAVING_ENTITY(Constants.ERROR_SAVING_ENTITY),
+    BAD_APARTMENT_KEY_EXCEPTION(Constants.BAD_APARTMENT_KEY_EXCEPTION),
+    APARTMENT_NOT_DELIVERED_EXCEPTION(Constants.APARTMENT_NOT_DELIVERED_EXCEPTION),
+    UNRECOGNIZED_WARRANTY_EVENT(Constants.UNRECOGNIZED_WARRANTY_EVENT),
+    INVALID_FILTERS(Constants.INVALID_FILTERS),
+    ERROR_SENT_EVENT(Constants.ERROR_SENT_EVENT),
+    CONFLICT_TO_SENT_HL7_MESSAGE(Constants.CONFLICT_TO_SENT_HL7_MESSAGE),
+    CONFLICT_TO_GENERATE_HL7_MESSAGE(Constants.CONFLICT_TO_GENERATE_HL7_MESSAGE),
+    CONFLICT_TO_GENERATE_HL7_FILE(Constants.CONFLICT_TO_GENERATE_HL7_FILE);
+    final String value;
+    ErrorCode(String valueEnum) {
+        value = valueEnum;
+    }
+
+    private static class Constants {
+        public static final String CONFLICT_TO_SENT_HL7_MESSAGE = "CONFLICT_TO_SENT_HL7_MESSAGE";
+        public static final String CONFLICT_TO_GENERATE_HL7_MESSAGE = "CONFLICT_TO_GENERATE_HL7_MESSAGE";
+        public static final String CONFLICT_TO_GENERATE_HL7_FILE = "CONFLICT_TO_GENERATE_HL7_FILE";
+        public static final String ENTITY_NOT_FOUND = "ENTITY_NOT_FOUND";
+        public static final String PATIENT_ALREADY_EXIST = "PATIENT_ALREADY_EXIST";
+        public static final String REPOSITORY_CONFLICT = "REPOSITORY_CONFLICT";
+        public static final String REPOSITORY_NOT_AVAILABLE = "REPOSITORY_NOT_AVAILABLE";
+        public static final String BAD_APARTMENT_KEY_EXCEPTION = "BAD_APARTMENT_KEY_EXCEPTION";
+        public static final String APARTMENT_NOT_DELIVERED_EXCEPTION = "APARTMENT_NOT_DELIVERED_EXCEPTION";
+        public static final String UNRECOGNIZED_WARRANTY_EVENT = "UNRECOGNIZED_WARRANTY_EVENT";
+        public static final String INVALID_FILTERS = "UNRECOGNIZED_WARRANTY_EVENT";
+        public static final String ERROR_SENT_EVENT = "ERROR_SENT_EVENT";
+        public static final String BAD_REQUEST = "BAD_REQUEST";
+        public static final String UNEXPECTED_ERROR = "UNEXPECTED_ERROR";
+        public static final String ERROR_SAVING_ENTITY = "ERROR_SAVING_ENTITY";
+
+    }
+}

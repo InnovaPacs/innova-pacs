@@ -9,6 +9,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 public interface CreatePatientCommand {
+
     Patient execute(Data data);
 
     @Getter
