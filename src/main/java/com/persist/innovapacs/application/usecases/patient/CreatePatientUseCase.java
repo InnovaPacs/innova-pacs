@@ -16,7 +16,7 @@ public class CreatePatientUseCase implements CreatePatientCommand {
     @Override
     public Patient execute(Data data) {
 
-        return patientJPAAdapter.patch(Patient.builder()
+        return patientJPAAdapter.save(Patient.builder()
                 .id(UUID.randomUUID().toString())
                 .documentId(data.getDocumentId())
                 .emergencyContact(data.getEmergencyContact())

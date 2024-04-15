@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface PatientRepository {
     Page<Patient> findAllPatients(PatientFilter filter);
-    Optional<Patient> findByDocumentId(String documentId);
     Patient save(Patient patient);
     Patient patch(Patient patient);
 }

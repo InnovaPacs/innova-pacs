@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface PhysicianRepository {
     Page<Physician> findAllPatients(PhysicianFilter filter);
-    Optional<Physician> findByDocumentId(String documentId);
     Physician save(Physician patient);
     Physician patch(Physician patient);
 }

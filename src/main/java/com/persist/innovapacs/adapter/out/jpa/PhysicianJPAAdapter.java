@@ -44,11 +44,6 @@ public class PhysicianJPAAdapter implements PhysicianRepository {
     }
 
     @Override
-    public Optional<Physician> findByDocumentId(String documentId) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public Physician save(Physician physician) {
         try {
 

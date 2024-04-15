@@ -1,14 +1,12 @@
 package com.persist.innovapacs.adapter.out.jpa.entities;
 
+import com.persist.innovapacs.domain.Appointment;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -60,4 +58,37 @@ public class AppointmentEntity {
     @ManyToOne
     @JoinColumn(name = "study_id", referencedColumnName = "id")
     private StudyEntity study;
+
+    public static Appointment toDomain(AppointmentEntity appointment) {
+        return Appointment.builder()
+                .id(appointment.getId())
+                .appointmentDate(appointment.getAppointmentDate())
+                .appointmentTime(appointment.getAppointmentTime())
+                .purpose(appointment.getPurpose())
+                .status(appointment.getStatus())
+                .controlNumber(appointment.getControlNumber())
+                .build();
+    }
+
+    public static AppointmentEntity fromDomain(Appointment appointment) {
+        return AppointmentEntity.builder()
+                .id(appointment.getId())
+                .appointmentDate(appointment.getAppointmentDate())
+                .appointmentTime(appointment.getAppointmentTime())
+                .purpose(appointment.getPurpose())
+                .status(appointment.getStatus())
+                .controlNumber(appointment.getControlNumber())
+                .build();
+    }
+
+    public static AppointmentEntity patchEntity(Appointment appointment, AppointmentEntity currentAppointment) {
+        return AppointmentEntity.builder()
+                .id(appointment.getId())
+                .appointmentDate(appointment.getAppointmentDate() != null ? appointment.getAppointmentDate() : currentAppointment.getAppointmentDate())
+                .appointmentTime(appointment.getAppointmentTime() != null ? appointment.getAppointmentTime() : currentAppointment.getAppointmentTime())
+                .purpose(appointment.getPurpose() != null ? appointment.getPurpose() : currentAppointment.getPurpose())
+                .status(appointment.getStatus() != null ? appointment.getStatus() : currentAppointment.getStatus())
+                .controlNumber(appointment.getControlNumber() != null ? appointment.getControlNumber() : currentAppointment.getControlNumber())
+                .build();
+    }
 }

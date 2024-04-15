@@ -1,11 +1,12 @@
 package com.persist.innovapacs.adapter.out.jpa;
 
-import com.persist.innovapacs.adapter.out.jpa.entities.PatientEntity;
-import com.persist.innovapacs.adapter.out.jpa.entities.spesification.PatientSpecifications;
-import com.persist.innovapacs.adapter.out.jpa.repositories.PatientJPARepository;
-import com.persist.innovapacs.application.ports.out.PatientRepository;
-import com.persist.innovapacs.domain.Patient;
-import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.AppointmentEntity;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.AppointmentSpecifications;
+import com.persist.innovapacs.adapter.out.jpa.repositories.AppointmentJPARepository;
+import com.persist.innovapacs.application.ports.out.AppointmentRepository;
+import com.persist.innovapacs.domain.Appointment;
+import com.persist.innovapacs.domain.commons.AppointmentFilter;
+import com.persist.innovapacs.domain.commons.Page;
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
 import com.persist.innovapacs.domain.exception.EntityNotFoundException;
@@ -15,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -25,29 +25,31 @@ import java.util.Optional;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PatientJPAAdapter implements PatientRepository {
-    private final PatientJPARepository patientJPARepository;
+public class AppointmentJPAAdapter implements AppointmentRepository {
+    private final AppointmentJPARepository appointmentJPARepository;
 
     @Override
-    public com.persist.innovapacs.domain.commons.Page<Patient> findAllPatients(PatientFilter filter) {
+    public Page<Appointment> findAllPatients(AppointmentFilter filter) {
         PageRequest pageable = PageRequest.of(filter.getPage(), filter.getSize());
-        Specification<PatientEntity> spec = PatientSpecifications.getQuery(filter);
-        Page<PatientEntity> patients = patientJPARepository.findAll(spec, pageable);
+        Specification<AppointmentEntity> spec = AppointmentSpecifications.getQuery(filter);
+        org.springframework.data.domain.Page<AppointmentEntity> appointments = appointmentJPARepository.findAll(spec, pageable);
 
-        return com.persist.innovapacs.domain.commons.Page.<Patient>builder()
-                .size(patients.getSize())
-                .totalPages(patients.getTotalPages())
-                .number(patients.getNumber())
-                .totalElements(patients.getTotalElements())
-                .content(patients.getContent().stream().map(PatientEntity::toDomain).toList())
+        return com.persist.innovapacs.domain.commons.Page.<Appointment>builder()
+                .size(appointments.getSize())
+                .totalPages(appointments.getTotalPages())
+                .number(appointments.getNumber())
+                .totalElements(appointments.getTotalElements())
+                .content(appointments.getContent().stream().map(AppointmentEntity::toDomain).toList())
                 .build();
     }
 
     @Override
-    public Patient save(Patient patient) {
+    public Appointment save(Appointment appointment) {
         try {
-            PatientEntity patientEntity = PatientEntity.fromDomain(patient);
-            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+            AppointmentEntity appointmentEntity = AppointmentEntity.fromDomain(appointment);
+            return AppointmentEntity.toDomain(appointmentJPARepository.save(appointmentEntity));
+
         } catch (DataIntegrityViolationException ex) {
             logError("Error saving patient", ex);
             throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
@@ -61,14 +63,17 @@ public class PatientJPAAdapter implements PatientRepository {
     }
 
     @Override
-    public Patient patch(Patient patient) {
+    public Appointment patch(Appointment appointment) {
         try {
-            Optional<PatientEntity> currentPatient = patientJPARepository.findById(patient.getId());
-            if (currentPatient.isEmpty()) {
+
+            Optional<AppointmentEntity> currentAppointment = appointmentJPARepository.findById(appointment.getId());
+            if (currentAppointment.isEmpty()) {
                 throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
             }
-            PatientEntity patientEntity = PatientEntity.patchEntity(patient, currentPatient.get());
-            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+            AppointmentEntity appointmentEntity = AppointmentEntity.patchEntity(appointment, currentAppointment.get());
+            return AppointmentEntity.toDomain(appointmentJPARepository.save(appointmentEntity));
+
         } catch (DataIntegrityViolationException ex) {
             logError("Error patching patient", ex);
             throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);

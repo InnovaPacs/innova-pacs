@@ -17,7 +17,6 @@ public class Appointment {
     String purpose;
     String status;
     String controlNumber;
-    LocalDate creationDate;
     String address;
     String city;
     String state;
