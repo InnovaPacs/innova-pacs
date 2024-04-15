@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 
@@ -27,6 +29,12 @@ public class UserEntity {
     String password;
     @Column
     String status;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDate createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
 
     public static User toDomain(UserEntity user) {
         if ( user == null ) return  null;

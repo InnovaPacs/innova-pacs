@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 
@@ -55,6 +57,12 @@ public class PatientEntity {
     String gender;
     @Column(name = "marital_status")
     String maritalStatus;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDate createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

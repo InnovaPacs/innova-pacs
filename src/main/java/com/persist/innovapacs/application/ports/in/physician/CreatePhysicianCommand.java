@@ -1,14 +1,14 @@
-package com.persist.innovapacs.application.ports.in.patient;
+package com.persist.innovapacs.application.ports.in.physician;
 
-import com.persist.innovapacs.domain.Patient;
+import com.persist.innovapacs.domain.Physician;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
-public interface CreatePatientCommand {
+public interface CreatePhysicianCommand {
 
-    Patient execute(Data data);
+    Physician execute(Data data);
 
     @Getter
     @Builder
@@ -18,16 +18,13 @@ public interface CreatePatientCommand {
         String lastName;
         LocalDate dateOfBirth;
         String gender;
+        String specialization;
         String documentId;
         String phoneNumber;
         String address;
         String city;
         String state;
-        String ssn;
         String postalCode;
         String country;
-        String notes;
-        String maritalStatus;
-        String emergencyContact;
     }
 }

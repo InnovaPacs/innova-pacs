@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -35,6 +38,12 @@ public class MedicalOfficeEntity {
     String postalCode;
     @Column
     String country;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDate createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
 
     @ManyToMany(mappedBy = "medicalOffices")
     private Set<PhysicianEntity> physicians;

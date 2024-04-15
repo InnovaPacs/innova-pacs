@@ -1,11 +1,11 @@
 package com.persist.innovapacs.adapter.out.jpa;
 
-import com.persist.innovapacs.adapter.out.jpa.entities.PatientEntity;
-import com.persist.innovapacs.adapter.out.jpa.entities.spesification.PatientSpecifications;
-import com.persist.innovapacs.adapter.out.jpa.repositories.PatientJPARepository;
-import com.persist.innovapacs.application.ports.out.PatientRepository;
-import com.persist.innovapacs.domain.Patient;
-import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.PhysicianEntity;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.PhysicianSpecifications;
+import com.persist.innovapacs.adapter.out.jpa.repositories.PhysicianJPARepository;
+import com.persist.innovapacs.application.ports.out.PhysicianRepository;
+import com.persist.innovapacs.domain.Physician;
+import com.persist.innovapacs.domain.commons.PhysicianFilter;
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
 import com.persist.innovapacs.domain.exception.EntityNotFoundException;
@@ -25,34 +25,36 @@ import java.util.Optional;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PatientJPAAdapter implements PatientRepository {
-    private final PatientJPARepository patientJPARepository;
+public class PhysicianJPAAdapter implements PhysicianRepository {
+    private final PhysicianJPARepository physicianJPARepository;
 
     @Override
-    public com.persist.innovapacs.domain.commons.Page<Patient> findAllPatients(PatientFilter filter) {
+    public com.persist.innovapacs.domain.commons.Page<Physician> findAllPatients(PhysicianFilter filter) {
         PageRequest pageable = PageRequest.of(filter.getPage(), filter.getSize());
-        Specification<PatientEntity> spec = PatientSpecifications.getQuery(filter);
-        Page<PatientEntity> patients = patientJPARepository.findAll(spec, pageable);
+        Specification<PhysicianEntity> spec = PhysicianSpecifications.getQuery(filter);
+        Page<PhysicianEntity> physicians = physicianJPARepository.findAll(spec, pageable);
 
-        return com.persist.innovapacs.domain.commons.Page.<Patient>builder()
-                .size(patients.getSize())
-                .totalPages(patients.getTotalPages())
-                .number(patients.getNumber())
-                .totalElements(patients.getTotalElements())
-                .content(patients.getContent().stream().map(PatientEntity::toDomain).toList())
+        return com.persist.innovapacs.domain.commons.Page.<Physician>builder()
+                .size(physicians.getSize())
+                .totalPages(physicians.getTotalPages())
+                .number(physicians.getNumber())
+                .totalElements(physicians.getTotalElements())
+                .content(physicians.getContent().stream().map(PhysicianEntity::toDomain).toList())
                 .build();
     }
 
     @Override
-    public Optional<Patient> findByDocumentId(String documentId) {
+    public Optional<Physician> findByDocumentId(String documentId) {
         throw new UnsupportedOperationException("Method not implemented");
     }
 
     @Override
-    public Patient save(Patient patient) {
+    public Physician save(Physician physician) {
         try {
-            PatientEntity patientEntity = PatientEntity.fromDomain(patient);
-            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+            PhysicianEntity physicianEntity = PhysicianEntity.fromDomain(physician);
+            return PhysicianEntity.toDomain(physicianJPARepository.save(physicianEntity));
+
         } catch (DataIntegrityViolationException ex) {
             logError("Error saving patient", ex);
             throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
@@ -66,14 +68,17 @@ public class PatientJPAAdapter implements PatientRepository {
     }
 
     @Override
-    public Patient patch(Patient patient) {
+    public Physician patch(Physician physician) {
         try {
-            Optional<PatientEntity> currentPatient = patientJPARepository.findById(patient.getId());
-            if (currentPatient.isEmpty()) {
+
+            Optional<PhysicianEntity> currentPhysician = physicianJPARepository.findById(physician.getId());
+            if (currentPhysician.isEmpty()) {
                 throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
             }
-            PatientEntity patientEntity = PatientEntity.patchEntity(patient, currentPatient.get());
-            return PatientEntity.toDomain(patientJPARepository.save(patientEntity));
+
+            PhysicianEntity physicianEntity = PhysicianEntity.patchEntity(physician, currentPhysician.get());
+            return PhysicianEntity.toDomain(physicianJPARepository.save(physicianEntity));
+
         } catch (DataIntegrityViolationException ex) {
             logError("Error patching patient", ex);
             throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);

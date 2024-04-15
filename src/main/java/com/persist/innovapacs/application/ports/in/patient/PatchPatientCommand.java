@@ -1,10 +1,8 @@
 package com.persist.innovapacs.application.ports.in.patient;
 
-import com.persist.innovapacs.application.ports.in.patient.commands.PatientCommand;
 import com.persist.innovapacs.domain.Patient;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.With;
 
 import java.time.LocalDate;
 
@@ -15,7 +13,6 @@ public interface PatchPatientCommand {
     @Getter
     @Builder
     class Data {
-        @With
         String id;
         String firstName;
         String lastName;
