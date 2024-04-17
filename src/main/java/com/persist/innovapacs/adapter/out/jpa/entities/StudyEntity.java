@@ -1,5 +1,6 @@
 package com.persist.innovapacs.adapter.out.jpa.entities;
 
+import com.persist.innovapacs.domain.Study;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -42,4 +43,42 @@ public class StudyEntity {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    public static Study toDomain(StudyEntity study) {
+
+        if (study == null) return null;
+
+        return Study.builder()
+                .id(study.getId())
+                .studyDate(study.getStudyDate())
+                .modality(study.getModality())
+                .studyType(study.getStudyType())
+                .studyDescription(study.getStudyDescription())
+                .studyResults(study.getStudyResults())
+                .build();
+    }
+
+    public static StudyEntity fromDomain(Study study) {
+
+        if (study == null) return null;
+
+        return StudyEntity.builder()
+                .id(study.getId())
+                .studyDate(study.getStudyDate())
+                .modality(study.getModality())
+                .studyType(study.getStudyType())
+                .studyDescription(study.getStudyDescription())
+                .studyResults(study.getStudyResults())
+                .build();
+    }
+
+    public static StudyEntity patchEntity(Study study, StudyEntity currentStudy) {
+        return StudyEntity.builder()
+                .studyDate(study.getStudyDate() != null ? study.getStudyDate() : currentStudy.getStudyDate())
+                .modality(study.getModality() != null ? study.getModality() : currentStudy.getModality())
+                .studyType(study.getStudyType() != null ? study.getStudyType() : currentStudy.getStudyType())
+                .studyDescription(study.getStudyDescription() != null ? study.getStudyDescription() : currentStudy.getStudyDescription())
+                .studyResults(study.getStudyResults() != null ? study.getStudyResults() : currentStudy.getStudyResults())
+                .build();
+    }
 }
