@@ -8,4 +8,5 @@ public interface MedicalOfficeRepository {
     Page<MedicalOffice> findAll(MedicalOfficeFilter filter);
     MedicalOffice save(MedicalOffice medicalOffice);
     MedicalOffice patch(MedicalOffice medicalOffice);
+    MedicalOffice findById(String medicalOfficeId);
 }

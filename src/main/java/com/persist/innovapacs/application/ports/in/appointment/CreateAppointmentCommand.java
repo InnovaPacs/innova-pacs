@@ -17,8 +17,10 @@ public interface CreateAppointmentCommand {
     @Builder
     class Data {
         String id;
-        Patient patient;
-        Physician physician;
+        String patientId;
+        String physicianId;
+        String studyId;
+        String medicalOfficeId;
         LocalDate appointmentDate;
         LocalTime appointmentTime;
         String purpose;

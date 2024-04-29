@@ -2,6 +2,7 @@ package com.persist.innovapacs.adapter.in.rest.impl;
 
 import com.persist.innovapacs.adapter.in.rest.IAppointmentController;
 import com.persist.innovapacs.adapter.in.rest.model.AppointmentRestModel;
+import com.persist.innovapacs.adapter.in.rest.model.CreateAppointmentRestModel;
 import com.persist.innovapacs.adapter.in.rest.model.PageRestModel;
 import com.persist.innovapacs.application.ports.in.appointment.CreateAppointmentCommand;
 import com.persist.innovapacs.application.ports.in.appointment.GetAppointmentQuery;
@@ -34,7 +35,7 @@ public class AppointmentController implements IAppointmentController {
     }
 
     @Override
-    public AppointmentRestModel create(AppointmentRestModel appointmentRestModel) {
+    public AppointmentRestModel create(CreateAppointmentRestModel appointmentRestModel) {
         log.info("POST /v1/appointments");
 
         Appointment appointment = createAppointmentCommand.execute(CreateAppointmentCommand.Data.builder()
@@ -42,6 +43,10 @@ public class AppointmentController implements IAppointmentController {
                         .appointmentTime(appointmentRestModel.getAppointmentTime())
                         .controlNumber(appointmentRestModel.getControlNumber())//TODO create statue
                         .status(appointmentRestModel.getStatus())//TODO create statue
+                        .physicianId(appointmentRestModel.getPhysicianId())
+                        .patientId(appointmentRestModel.getPatientId())
+                        .studyId(appointmentRestModel.getStudyId())
+                        .medicalOfficeId(appointmentRestModel.getMedicalOfficeId())
                         .purpose(appointmentRestModel.getPurpose())
                 .build());
 

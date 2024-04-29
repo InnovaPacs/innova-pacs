@@ -21,6 +21,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @Slf4j
 @Component
@@ -86,7 +87,33 @@ public class MedicalOfficeJPAAdapter implements MedicalOfficeRepository {
         }
     }
 
+    @Override
+    public MedicalOffice findById(String medicalOfficeId) {
+        Optional<MedicalOfficeEntity> medicalOffice = handleExceptions(() -> medicalOfficeJPARepository.findById(medicalOfficeId));
+
+        if(medicalOffice.isEmpty()) {
+            throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
+        }
+
+        return MedicalOfficeEntity.toDomain(medicalOffice.get());
+    }
+
     private void logError(String message, Throwable ex) {
         log.error(message, ex);
+    }
+
+    private <T> T handleExceptions(Supplier<T> supplier) {
+        try {
+            return supplier.get();
+        } catch (DataIntegrityViolationException ex) {
+            logError("Error patching patient", ex);
+            throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
+        } catch (DataAccessException ex) {
+            logError("Unexpected error patching patient", ex);
+            throw new RepositoryConflictException(ErrorCode.REPOSITORY_CONFLICT);
+        } catch (Exception ex) {
+            logError("Unexpected error in patching patient", ex);
+            throw new BusinessException(ErrorCode.UNEXPECTED_ERROR);
+        }
     }
 }

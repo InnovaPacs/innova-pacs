@@ -19,16 +19,17 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.LowerCamelCaseStrategy.class)
 public class AppointmentRestModel {
     String id;
-    Patient patient;
-    Physician physician;
+    PatientRestModel patient;
+    PhysicianRestModel physician;
     LocalDate appointmentDate;
     LocalTime appointmentTime;
     String purpose;
     String status;
     String controlNumber;
+    StudyRestModel study;
 
     public static AppointmentRestModel fromDomain(Appointment appointment) {
         return AppointmentRestModel.builder()
@@ -38,6 +39,9 @@ public class AppointmentRestModel {
                 .purpose(appointment.getPurpose())
                 .status(appointment.getStatus())
                 .controlNumber(appointment.getControlNumber())
+                .study(StudyRestModel.fromDomain(appointment.getStudy()))
+                .patient(PatientRestModel.fromDomain(appointment.getPatient()))
+                .physician(PhysicianRestModel.fromDomain(appointment.getPhysician()))
                 .build();
     }
 }

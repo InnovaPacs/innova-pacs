@@ -11,4 +11,5 @@ public interface PatientRepository {
     Page<Patient> findAllPatients(PatientFilter filter);
     Patient save(Patient patient);
     Patient patch(Patient patient);
+    Patient findById(String patientId);
 }

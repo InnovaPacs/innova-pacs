@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-  db-pacs:
-    image: postgres:13
-    environment:
-      - POSTGRES_USER=innova_pacs
-      - POSTGRES_DB=innova_pacs
-      - POSTGRES_PASSWORD=InnovaPacs123
-    ports:
-      - '5451:5432'
-    volumes:
-      - /tmp/data_volums_docker/innova_pacs_database:/var/lib/postgresql/data
-
   db-ris:
     image: postgres:13
     environment:

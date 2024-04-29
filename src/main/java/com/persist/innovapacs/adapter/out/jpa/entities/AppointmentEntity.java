@@ -1,6 +1,7 @@
 package com.persist.innovapacs.adapter.out.jpa.entities;
 
 import com.persist.innovapacs.domain.Appointment;
+import com.persist.innovapacs.domain.Patient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -44,11 +45,11 @@ public class AppointmentEntity {
     private LocalDate updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private PatientEntity user;
+    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = true)
+    private PatientEntity patient;
 
     @ManyToOne
-    @JoinColumn(name = "physician_id", referencedColumnName = "id")
+    @JoinColumn(name = "physician_id", referencedColumnName = "id", nullable = true)
     private PhysicianEntity physician;
 
     @ManyToOne
@@ -67,6 +68,9 @@ public class AppointmentEntity {
                 .purpose(appointment.getPurpose())
                 .status(appointment.getStatus())
                 .controlNumber(appointment.getControlNumber())
+                .patient(PatientEntity.toDomain(appointment.getPatient()))
+                .physician(PhysicianEntity.toDomain(appointment.getPhysician()))
+                .study(StudyEntity.toDomain(appointment.getStudy()))
                 .build();
     }
 
@@ -78,6 +82,10 @@ public class AppointmentEntity {
                 .purpose(appointment.getPurpose())
                 .status(appointment.getStatus())
                 .controlNumber(appointment.getControlNumber())
+                .physician(PhysicianEntity.fromDomain(appointment.getPhysician()))
+                .patient(PatientEntity.fromDomain(appointment.getPatient()))
+                .medicalOffice(MedicalOfficeEntity.fromDomain(appointment.getMedicalOffice()))
+                .study(StudyEntity.fromDomain(appointment.getStudy()))
                 .build();
     }
 

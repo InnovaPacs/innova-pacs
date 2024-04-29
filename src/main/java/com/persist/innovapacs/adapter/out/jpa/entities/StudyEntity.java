@@ -4,6 +4,8 @@ import com.persist.innovapacs.domain.Study;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,10 +25,6 @@ import java.time.LocalDate;
 public class StudyEntity {
     @Id()
     String id;
-    @Column(name = "patient_id")
-    String patientId;
-    @Column(name = "physician_id")
-    String physicianId;
     @Column(name = "study_date")
     LocalDate studyDate;
     @Column(name = "modality", length = 20)
@@ -44,6 +42,13 @@ public class StudyEntity {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    private PatientEntity patient;
+    @ManyToOne
+    @JoinColumn(name = "physician_id", referencedColumnName = "id")
+    private PhysicianEntity physician;
+
     public static Study toDomain(StudyEntity study) {
 
         if (study == null) return null;
@@ -55,6 +60,8 @@ public class StudyEntity {
                 .studyType(study.getStudyType())
                 .studyDescription(study.getStudyDescription())
                 .studyResults(study.getStudyResults())
+                .patient(PatientEntity.toDomain(study.getPatient()))
+                .physician(PhysicianEntity.toDomain(study.getPhysician()))
                 .build();
     }
 

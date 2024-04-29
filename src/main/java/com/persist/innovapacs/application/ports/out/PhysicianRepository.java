@@ -10,4 +10,5 @@ public interface PhysicianRepository {
     Page<Physician> findAllPatients(PhysicianFilter filter);
     Physician save(Physician patient);
     Physician patch(Physician patient);
+    Physician findById(String patientId);
 }

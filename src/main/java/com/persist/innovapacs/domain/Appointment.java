@@ -22,4 +22,6 @@ public class Appointment {
     String state;
     String postalCode;
     String country;
+    Study study;
+    MedicalOffice medicalOffice;
 }

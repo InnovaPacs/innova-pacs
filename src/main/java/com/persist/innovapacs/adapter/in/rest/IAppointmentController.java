@@ -1,6 +1,7 @@
 package com.persist.innovapacs.adapter.in.rest;
 
 import com.persist.innovapacs.adapter.in.rest.model.AppointmentRestModel;
+import com.persist.innovapacs.adapter.in.rest.model.CreateAppointmentRestModel;
 import com.persist.innovapacs.adapter.in.rest.model.PageRestModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,7 +14,7 @@ public interface IAppointmentController {
     @GetMapping()
     PageRestModel<AppointmentRestModel> findAll(@RequestParam(name = "size") Integer size, @RequestParam(name = "page") Integer page);
     @PostMapping
-    AppointmentRestModel create(@RequestBody AppointmentRestModel appointmentRestModel);
+    AppointmentRestModel create(@RequestBody CreateAppointmentRestModel appointmentRestModel);
     @PatchMapping("/{patientId}")
     AppointmentRestModel update(@PathVariable() String patientId, @RequestBody AppointmentRestModel appointmentRestModel);
 }
