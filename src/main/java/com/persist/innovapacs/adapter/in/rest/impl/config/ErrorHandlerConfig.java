@@ -2,6 +2,8 @@ package com.persist.innovapacs.adapter.in.rest.impl.config;
 
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
+import com.persist.innovapacs.domain.exception.EntityNotFoundException;
+import com.persist.innovapacs.domain.exception.RepositoryConflictException;
 import com.persist.innovapacs.domain.exception.model.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,18 @@ public class ErrorHandlerConfig {
 
     @ExceptionHandler({EntityConflictException.class})
     public ResponseEntity<ErrorResponse> handle(EntityConflictException ex) {
+        log.error(ERROR_HANDLED, ex);
+        return ResponseEntity.status(ex.getErrorResponse().getHttpStatus()).body(ex.getErrorResponse());
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handle(EntityNotFoundException ex) {
+        log.error(ERROR_HANDLED, ex);
+        return ResponseEntity.status(ex.getErrorResponse().getHttpStatus()).body(ex.getErrorResponse());
+    }
+
+    @ExceptionHandler({RepositoryConflictException.class})
+    public ResponseEntity<ErrorResponse> handle(RepositoryConflictException ex) {
         log.error(ERROR_HANDLED, ex);
         return ResponseEntity.status(ex.getErrorResponse().getHttpStatus()).body(ex.getErrorResponse());
     }

@@ -20,6 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -53,13 +55,22 @@ public class StudyJPAAdapter implements StudyRepository {
 
         } catch (DataIntegrityViolationException ex) {
             logError("Error saving patient", ex);
-            throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY);
+
+            Map<String, String> map = new HashMap<>();
+            map.put("ERROR_SAVING_ENTITY", ex.getMessage());
+            throw new EntityConflictException(ErrorCode.ERROR_SAVING_ENTITY, map);
         } catch (DataAccessException ex) {
             logError("Unexpected error saving patient", ex);
-            throw new RepositoryConflictException(ErrorCode.REPOSITORY_CONFLICT);
+
+            Map<String, String> map = new HashMap<>();
+            map.put("REPOSITORY_CONFLICT", ex.getMessage());
+            throw new RepositoryConflictException(ErrorCode.REPOSITORY_CONFLICT, map);
         } catch (Exception ex) {
             logError("Unexpected error in saving patient", ex);
-            throw new BusinessException(ErrorCode.UNEXPECTED_ERROR);
+
+            Map<String, String> map = new HashMap<>();
+            map.put("REPOSITORY_CONFLICT", ex.getMessage());
+            throw new BusinessException(ErrorCode.REPOSITORY_CONFLICT, map);
         }
     }
 
