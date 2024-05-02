@@ -1,13 +1,15 @@
 package com.persist.innovapacs.adapter.in.rest.impl;
 
 import com.persist.innovapacs.adapter.in.rest.IStudyController;
+import com.persist.innovapacs.adapter.in.rest.model.CreateStudyRestModel;
+import com.persist.innovapacs.adapter.in.rest.model.ModalityRestModel;
 import com.persist.innovapacs.adapter.in.rest.model.PageRestModel;
 import com.persist.innovapacs.adapter.in.rest.model.StudyRestModel;
 import com.persist.innovapacs.application.ports.in.study.CreateStudyCommand;
 import com.persist.innovapacs.application.ports.in.study.GetStudiesQuery;
 import com.persist.innovapacs.application.ports.in.study.PatchStudyCommand;
 import com.persist.innovapacs.domain.Study;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +36,18 @@ public class StudyController implements IStudyController {
     }
 
     @Override
-    public StudyRestModel create(StudyRestModel studyRestModel) {
+    public StudyRestModel create(CreateStudyRestModel createStudyRestModel) {
         log.info("POST /v1/studies");
 
         Study study = createStudyCommand.execute(CreateStudyCommand.Data.builder()
-                .studyDate(studyRestModel.getStudyDate())
-                .modality(studyRestModel.getModality())
-                .studyType(studyRestModel.getStudyType())
-                .studyDescription(studyRestModel.getStudyDescription())
-                .studyResults(studyRestModel.getStudyResults())
+                .modalityId(createStudyRestModel.getModalityId())
+                .physicianId(createStudyRestModel.getPhysicianId())
+                .patientId(createStudyRestModel.getPatientId())
+                .studyType(createStudyRestModel.getStudyType())
+                .modalityId(createStudyRestModel.getModalityId())
+                .studyDate(createStudyRestModel.getStudyDate())
+                .studyDescription(createStudyRestModel.getStudyDescription())
+                .studyResults(createStudyRestModel.getStudyResults())
                 .build());
 
         return StudyRestModel.fromDomain(study);
@@ -55,7 +60,7 @@ public class StudyController implements IStudyController {
         Study study = patchStudyCommand.execute(PatchStudyCommand.Data.builder()
                 .id(studyId)
                 .studyDate(studyRestModel.getStudyDate())
-                .modality(studyRestModel.getModality())
+                .modality(ModalityRestModel.toDomain(studyRestModel.getModality()))
                 .studyType(studyRestModel.getStudyType())
                 .studyDescription(studyRestModel.getStudyDescription())
                 .studyResults(studyRestModel.getStudyResults())

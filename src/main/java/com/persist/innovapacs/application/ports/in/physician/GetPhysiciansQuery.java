@@ -1,7 +1,7 @@
 package com.persist.innovapacs.application.ports.in.physician;
 
 import com.persist.innovapacs.domain.Physician;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.Builder;
 import lombok.Getter;
 

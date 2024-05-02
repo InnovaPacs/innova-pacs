@@ -17,31 +17,26 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.LowerCamelCaseStrategy.class)
-public class StudyRestModel {
+public class CreateStudyRestModel {
     String id;
-    PatientRestModel patient;
-    PhysicianRestModel physician;
+    String patientId;
+    String physicianId;
+    String modalityId;
     LocalDate studyDate;
-    ModalityRestModel modality;
     String studyType;
     String studyDescription;
     String studyResults;
 
-    public static StudyRestModel fromDomain(Study study) {
+    public static CreateStudyRestModel fromDomain(Study study) {
 
         if (study == null) return null;
 
-        return StudyRestModel.builder()
+        return CreateStudyRestModel.builder()
                 .id(study.getId())
-                .patient(PatientRestModel.fromDomain(study.getPatient()))
-                .physician(PhysicianRestModel.fromDomain(study.getPhysician()))
                 .studyDate(study.getStudyDate())
-                .modality(ModalityRestModel.fromDomain(study.getModality()))
                 .studyType(study.getStudyType())
                 .studyDescription(study.getStudyDescription())
                 .studyResults(study.getStudyResults())
-                .patient(PatientRestModel.fromDomain(study.getPatient()))
-                .physician(PhysicianRestModel.fromDomain(study.getPhysician()))
                 .build();
     }
 }

@@ -3,8 +3,8 @@ package com.persist.innovapacs.application.usecases.physician;
 import com.persist.innovapacs.application.ports.in.physician.GetPhysiciansQuery;
 import com.persist.innovapacs.application.ports.out.PhysicianRepository;
 import com.persist.innovapacs.domain.Physician;
-import com.persist.innovapacs.domain.commons.Page;
-import com.persist.innovapacs.domain.commons.PhysicianFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.PhysicianFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

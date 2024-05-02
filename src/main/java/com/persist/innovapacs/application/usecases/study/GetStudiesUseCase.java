@@ -3,8 +3,8 @@ package com.persist.innovapacs.application.usecases.study;
 import com.persist.innovapacs.application.ports.in.study.GetStudiesQuery;
 import com.persist.innovapacs.application.ports.out.StudyRepository;
 import com.persist.innovapacs.domain.Study;
-import com.persist.innovapacs.domain.commons.Page;
-import com.persist.innovapacs.domain.commons.StudyFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.StudyFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

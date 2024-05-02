@@ -5,8 +5,8 @@ import com.persist.innovapacs.adapter.out.jpa.entities.spesification.MedicalOffi
 import com.persist.innovapacs.adapter.out.jpa.repositories.MedicalOfficeJPARepository;
 import com.persist.innovapacs.application.ports.out.MedicalOfficeRepository;
 import com.persist.innovapacs.domain.MedicalOffice;
-import com.persist.innovapacs.domain.commons.MedicalOfficeFilter;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.MedicalOfficeFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
 import com.persist.innovapacs.domain.exception.EntityNotFoundException;
@@ -35,7 +35,7 @@ public class MedicalOfficeJPAAdapter implements MedicalOfficeRepository {
         Specification<MedicalOfficeEntity> spec = MedicalOfficeSpecifications.getQuery(filter);
         org.springframework.data.domain.Page<MedicalOfficeEntity> medicalOffices = medicalOfficeJPARepository.findAll(spec, pageable);
 
-        return com.persist.innovapacs.domain.commons.Page.<MedicalOffice>builder()
+        return Page.<MedicalOffice>builder()
                 .size(medicalOffices.getSize())
                 .totalPages(medicalOffices.getTotalPages())
                 .number(medicalOffices.getNumber())

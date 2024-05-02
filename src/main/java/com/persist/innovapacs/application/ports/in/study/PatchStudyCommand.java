@@ -1,5 +1,6 @@
 package com.persist.innovapacs.application.ports.in.study;
 
+import com.persist.innovapacs.domain.Modality;
 import com.persist.innovapacs.domain.Patient;
 import com.persist.innovapacs.domain.Physician;
 import com.persist.innovapacs.domain.Study;
@@ -19,7 +20,7 @@ public interface PatchStudyCommand {
         Patient patient;
         Physician physician;
         LocalDate studyDate;
-        String modality;
+        Modality modality;
         String studyType;
         String studyDescription;
         String studyResults;

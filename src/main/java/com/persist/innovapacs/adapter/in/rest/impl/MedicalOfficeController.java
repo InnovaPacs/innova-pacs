@@ -7,7 +7,7 @@ import com.persist.innovapacs.application.ports.in.medical_office.CreateMedicalO
 import com.persist.innovapacs.application.ports.in.medical_office.GetMedicalOfficeQuery;
 import com.persist.innovapacs.application.ports.in.medical_office.PatchMedicalOfficeCommand;
 import com.persist.innovapacs.domain.MedicalOffice;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;

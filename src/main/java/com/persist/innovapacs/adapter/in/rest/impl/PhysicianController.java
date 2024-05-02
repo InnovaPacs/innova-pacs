@@ -7,7 +7,7 @@ import com.persist.innovapacs.application.ports.in.physician.CreatePhysicianComm
 import com.persist.innovapacs.application.ports.in.physician.GetPhysiciansQuery;
 import com.persist.innovapacs.application.ports.in.physician.PatchPhysicianCommand;
 import com.persist.innovapacs.domain.Physician;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;

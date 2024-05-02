@@ -3,8 +3,8 @@ package com.persist.innovapacs.application.usecases.appointment;
 import com.persist.innovapacs.application.ports.in.appointment.GetAppointmentQuery;
 import com.persist.innovapacs.application.ports.out.AppointmentRepository;
 import com.persist.innovapacs.domain.Appointment;
-import com.persist.innovapacs.domain.commons.AppointmentFilter;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.AppointmentFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

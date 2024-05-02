@@ -27,8 +27,6 @@ public class StudyEntity {
     String id;
     @Column(name = "study_date")
     LocalDate studyDate;
-    @Column(name = "modality", length = 20)
-    String modality;
     @Column(name = "study_type", length = 20)
     String studyType;
     @Column(name = "study_description", length = 100)
@@ -48,6 +46,9 @@ public class StudyEntity {
     @ManyToOne
     @JoinColumn(name = "physician_id", referencedColumnName = "id")
     private PhysicianEntity physician;
+    @ManyToOne
+    @JoinColumn(name = "modality_id", referencedColumnName = "id")
+    private ModalityEntity modality;
 
     public static Study toDomain(StudyEntity study) {
 
@@ -56,12 +57,12 @@ public class StudyEntity {
         return Study.builder()
                 .id(study.getId())
                 .studyDate(study.getStudyDate())
-                .modality(study.getModality())
                 .studyType(study.getStudyType())
                 .studyDescription(study.getStudyDescription())
                 .studyResults(study.getStudyResults())
                 .patient(PatientEntity.toDomain(study.getPatient()))
                 .physician(PhysicianEntity.toDomain(study.getPhysician()))
+                .modality(ModalityEntity.toDomain(study.getModality()))
                 .build();
     }
 
@@ -72,17 +73,18 @@ public class StudyEntity {
         return StudyEntity.builder()
                 .id(study.getId())
                 .studyDate(study.getStudyDate())
-                .modality(study.getModality())
                 .studyType(study.getStudyType())
                 .studyDescription(study.getStudyDescription())
                 .studyResults(study.getStudyResults())
+                .patient(PatientEntity.fromDomain(study.getPatient()))
+                .physician(PhysicianEntity.fromDomain(study.getPhysician()))
+                .modality(ModalityEntity.fromDomain(study.getModality()))
                 .build();
     }
 
     public static StudyEntity patchEntity(Study study, StudyEntity currentStudy) {
         return StudyEntity.builder()
                 .studyDate(study.getStudyDate() != null ? study.getStudyDate() : currentStudy.getStudyDate())
-                .modality(study.getModality() != null ? study.getModality() : currentStudy.getModality())
                 .studyType(study.getStudyType() != null ? study.getStudyType() : currentStudy.getStudyType())
                 .studyDescription(study.getStudyDescription() != null ? study.getStudyDescription() : currentStudy.getStudyDescription())
                 .studyResults(study.getStudyResults() != null ? study.getStudyResults() : currentStudy.getStudyResults())

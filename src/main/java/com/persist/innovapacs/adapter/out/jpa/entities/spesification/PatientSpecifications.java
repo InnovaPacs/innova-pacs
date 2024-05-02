@@ -1,7 +1,7 @@
 package com.persist.innovapacs.adapter.out.jpa.entities.spesification;
 
 import com.persist.innovapacs.adapter.out.jpa.entities.PatientEntity;
-import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.PatientFilter;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientSpecifications {

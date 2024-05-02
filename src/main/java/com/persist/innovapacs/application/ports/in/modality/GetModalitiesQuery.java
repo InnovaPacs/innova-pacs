@@ -1,18 +1,19 @@
-package com.persist.innovapacs.application.ports.in.study;
+package com.persist.innovapacs.application.ports.in.modality;
 
-import com.persist.innovapacs.domain.Study;
+import com.persist.innovapacs.domain.Modality;
 import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.Builder;
 import lombok.Getter;
 
-public interface GetStudiesQuery {
+public interface GetModalitiesQuery {
 
-    Page<Study> execute(Data data);
+    Page<Modality> execute(Data data);
 
     @Getter
     @Builder
     class Data {
         Integer size;
         Integer page;
+        String name;
     }
 }

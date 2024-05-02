@@ -3,9 +3,8 @@ package com.persist.innovapacs.application.usecases.patient;
 import com.persist.innovapacs.application.ports.in.patient.GetPatientsQuery;
 import com.persist.innovapacs.application.ports.out.PatientRepository;
 import com.persist.innovapacs.domain.Patient;
-import com.persist.innovapacs.domain.commons.Filter;
-import com.persist.innovapacs.domain.commons.Page;
-import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.PatientFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

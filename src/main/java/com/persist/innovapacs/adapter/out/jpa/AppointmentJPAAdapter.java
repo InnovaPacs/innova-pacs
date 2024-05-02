@@ -5,8 +5,8 @@ import com.persist.innovapacs.adapter.out.jpa.entities.spesification.Appointment
 import com.persist.innovapacs.adapter.out.jpa.repositories.AppointmentJPARepository;
 import com.persist.innovapacs.application.ports.out.AppointmentRepository;
 import com.persist.innovapacs.domain.Appointment;
-import com.persist.innovapacs.domain.commons.AppointmentFilter;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.AppointmentFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
 import com.persist.innovapacs.domain.exception.EntityNotFoundException;
@@ -34,7 +34,7 @@ public class AppointmentJPAAdapter implements AppointmentRepository {
         Specification<AppointmentEntity> spec = AppointmentSpecifications.getQuery(filter);
         org.springframework.data.domain.Page<AppointmentEntity> appointments = appointmentJPARepository.findAll(spec, pageable);
 
-        return com.persist.innovapacs.domain.commons.Page.<Appointment>builder()
+        return Page.<Appointment>builder()
                 .size(appointments.getSize())
                 .totalPages(appointments.getTotalPages())
                 .number(appointments.getNumber())

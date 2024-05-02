@@ -7,7 +7,7 @@ import com.persist.innovapacs.application.ports.in.patient.CreatePatientCommand;
 import com.persist.innovapacs.application.ports.in.patient.GetPatientsQuery;
 import com.persist.innovapacs.application.ports.in.patient.PatchPatientCommand;
 import com.persist.innovapacs.domain.Patient;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;

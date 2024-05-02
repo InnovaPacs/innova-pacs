@@ -12,7 +12,7 @@ public class Study {
     Patient patient;
     Physician physician;
     LocalDate studyDate;
-    String modality;
+    Modality modality;
     String studyType;
     String studyDescription;
     String studyResults;

@@ -1,4 +1,4 @@
-package com.persist.innovapacs.domain.commons;
+package com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Filter {
+public class ModalityFilter {
     Integer page;
     Integer size;
+    String name;
 }

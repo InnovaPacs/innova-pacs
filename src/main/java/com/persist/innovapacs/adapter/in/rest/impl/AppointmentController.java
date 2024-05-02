@@ -8,7 +8,7 @@ import com.persist.innovapacs.application.ports.in.appointment.CreateAppointment
 import com.persist.innovapacs.application.ports.in.appointment.GetAppointmentQuery;
 import com.persist.innovapacs.application.ports.in.appointment.PatchAppointmentCommand;
 import com.persist.innovapacs.domain.Appointment;
-import com.persist.innovapacs.domain.commons.Page;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;

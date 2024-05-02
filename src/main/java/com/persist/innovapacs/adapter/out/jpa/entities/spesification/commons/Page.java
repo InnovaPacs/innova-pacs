@@ -1,4 +1,4 @@
-package com.persist.innovapacs.domain.commons;
+package com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons;
 
 import lombok.Builder;
 import lombok.Value;

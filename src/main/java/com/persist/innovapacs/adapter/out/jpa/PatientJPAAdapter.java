@@ -5,7 +5,7 @@ import com.persist.innovapacs.adapter.out.jpa.entities.spesification.PatientSpec
 import com.persist.innovapacs.adapter.out.jpa.repositories.PatientJPARepository;
 import com.persist.innovapacs.application.ports.out.PatientRepository;
 import com.persist.innovapacs.domain.Patient;
-import com.persist.innovapacs.domain.commons.PatientFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.PatientFilter;
 import com.persist.innovapacs.domain.exception.BusinessException;
 import com.persist.innovapacs.domain.exception.EntityConflictException;
 import com.persist.innovapacs.domain.exception.EntityNotFoundException;
@@ -30,12 +30,12 @@ public class PatientJPAAdapter implements PatientRepository {
     private final PatientJPARepository patientJPARepository;
 
     @Override
-    public com.persist.innovapacs.domain.commons.Page<Patient> findAllPatients(PatientFilter filter) {
+    public com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page<Patient> findAllPatients(PatientFilter filter) {
         PageRequest pageable = PageRequest.of(filter.getPage(), filter.getSize());
         Specification<PatientEntity> spec = PatientSpecifications.getQuery(filter);
         Page<PatientEntity> patients = patientJPARepository.findAll(spec, pageable);
 
-        return com.persist.innovapacs.domain.commons.Page.<Patient>builder()
+        return com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.Page.<Patient>builder()
                 .size(patients.getSize())
                 .totalPages(patients.getTotalPages())
                 .number(patients.getNumber())

@@ -1,7 +1,7 @@
 package com.persist.innovapacs.adapter.out.jpa.entities.spesification;
 
 import com.persist.innovapacs.adapter.out.jpa.entities.MedicalOfficeEntity;
-import com.persist.innovapacs.domain.commons.MedicalOfficeFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.MedicalOfficeFilter;
 import org.springframework.data.jpa.domain.Specification;
 
 public class MedicalOfficeSpecifications {

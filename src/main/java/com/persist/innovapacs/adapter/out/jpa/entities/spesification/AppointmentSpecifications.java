@@ -1,7 +1,7 @@
 package com.persist.innovapacs.adapter.out.jpa.entities.spesification;
 
 import com.persist.innovapacs.adapter.out.jpa.entities.AppointmentEntity;
-import com.persist.innovapacs.domain.commons.AppointmentFilter;
+import com.persist.innovapacs.adapter.out.jpa.entities.spesification.commons.AppointmentFilter;
 import org.springframework.data.jpa.domain.Specification;
 
 public class AppointmentSpecifications {
